@@ -1,1 +1,10 @@
 services:
+  mysql-docker-container:
+    image: mysql:9.2.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=53cret
+      - MYSQL_DATABASE=user_db
+      - MYSQL_USER=yu71
+      - MYSQL_PASSWORD=53cret
+    volumes:
+      - ./data/mysql:/var/lib/mysql
