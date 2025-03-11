@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_DEFAULT;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-data-jpa-pagination
@@ -28,7 +30,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_DEFAULT) /* to exclude null values */
+@JsonInclude(NON_DEFAULT) /* to exclude null values */
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
