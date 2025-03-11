@@ -41,4 +41,13 @@ public class User {
     private String address;
     private String phone;
     private String imageUrl;
+
+    public User(String name, String email, String status, String address, String phone, String imageUrl) {
+        this.name = name;
+        this.email = email;
+        this.status = status;
+        this.address = address;
+        this.phone = phone;
+        this.imageUrl = imageUrl;
+    }
 }

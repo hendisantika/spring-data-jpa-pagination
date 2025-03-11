@@ -51,7 +51,7 @@ public class DbSeeder {
                 );
 
                 userRepository.save(new User(
-                        faker.random().nextLong(),
+//                        faker.random().nextLong(),
                         name,
                         email,
                         status,
