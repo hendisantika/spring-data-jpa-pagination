@@ -1,6 +1,10 @@
 services:
   mysql-docker-container:
     image: mysql:9.2.0
+    ports:
+      - "3307:3306"
+    expose:
+      - "3307"
     environment:
       - MYSQL_ROOT_PASSWORD=53cret
       - MYSQL_DATABASE=user_db
