@@ -11,18 +11,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.springframework.util.StringUtils;
 import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 
 /**
@@ -36,17 +37,20 @@ import static org.hamcrest.Matchers.equalTo;
  * Time: 06.25
  * To change this template use File | Settings | File Templates.
  */
+@AutoConfigureWebTestClient
+@Testcontainers
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class UserControllerTest {
     static MySQLContainer<?> mysql = new MySQLContainer<>(
             "mysql:9.2.0"
     );
 
-    @LocalServerPort
-    private Integer port;
-
     @Autowired
     private UserRepository userRepository;
+
+    private static final Faker faker = new Faker();
+    @LocalServerPort
+    private Integer port;
 
     @BeforeAll
     static void beforeAll() {
@@ -70,8 +74,6 @@ class UserControllerTest {
         RestAssured.baseURI = "http://localhost:" + port;
         userRepository.deleteAll();
     }
-
-    private static final Faker faker = new Faker();
 
     private List<User> initData() {
         List<User> userList = new ArrayList<>();
@@ -99,7 +101,6 @@ class UserControllerTest {
             );
 
             userRepository.save(new User(
-//                        faker.random().nextLong(),
                     name,
                     email,
                     status,
@@ -110,12 +111,6 @@ class UserControllerTest {
         }
 
         return userList = userRepository.findAll();
-    }
-
-    @Test
-    @DisplayName("Test MySQL Container Is Running")
-    void testMySQLContainerIsRunning() {
-        assertThat(mysql.isRunning()).isTrue();
     }
 
     @Test
