@@ -81,4 +81,9 @@ class SpringDataJpaPaginationApplicationTests {
         assertEquals("Ryoumen Sukuna", users.get(4).getName());
     }
 
+//    @Test
+//    void testSaveUserThrowsExceptionOnDuplicateFirstNameAndLastName() {
+//        assertThrows(DataIntegrityViolationException.class,
+//                () -> userRepository.save(new User("Ryoumen Sukuna", "sukuna@yopmail.com", "INACTIVE", "TOKYO", "08123456703", "https://randomuser.me/api/portraits/men/85.jpg")));
+//    }
 }

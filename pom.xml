@@ -16,6 +16,7 @@
     <properties>
         <java.version>23</java.version>
         <testcontainers.version>1.19.8</testcontainers.version>
+        <start-class>id.my.hendisantika.jpapagination.SpringDataJpaPaginationApplication</start-class>
     </properties>
     <dependencies>
         <dependency>
@@ -79,6 +80,40 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>amazonlambda</id>
+            <properties>
+                <base.image.registry>public.ecr.aws</base.image.registry>
+                <base.image.repository>lambda</base.image.repository>
+                <base.image.name>java</base.image.name>
+                <image.tag>21-x86_64</image.tag>
+            </properties>
+        </profile>
+        <profile>
+            <id>amazoncorretto</id>
+            <properties>
+                <base.image.registry>public.ecr.aws</base.image.registry>
+                <base.image.repository>amazoncorretto</base.image.repository>
+                <base.image.name>amazoncorretto</base.image.name>
+                <image.tag>21</image.tag>
+            </properties>
+        </profile>
+        <profile>
+            <id>distroless</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <base.image.registry>gcr.io</base.image.registry>
+                <base.image.repository>distroless</base.image.repository>
+                <base.image.name>java</base.image.name>
+                <image.tag>21</image.tag>
+            </properties>
+        </profile>
+    </profiles>
+
 
     <build>
         <plugins>
