@@ -1,13 +1,64 @@
 # spring-data-jpa-pagination
 
-### Things todo list:
+[![Java CI with Maven](https://github.com/hendisantika/spring-data-jpa-pagination/actions/workflows/maven.yml/badge.svg)](https://github.com/hendisantika/spring-data-jpa-pagination/actions/workflows/maven.yml)
+![Java](https://img.shields.io/badge/Java-25-orange?logo=openjdk)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1.1-6DB33F?logo=springboot)
+![MySQL](https://img.shields.io/badge/MySQL-9.2-4479A1?logo=mysql&logoColor=white)
 
-1. Clone this repository: `git clone https://github.com/hendisantika/spring-data-jpa-pagination.git`
-2. Go to the folder: `cd spring-data-jpa-pagination`
-3. Change your DB credentials in `application.yml`
-4. Run the application: `mvn clean spring-boot:run`
-5. Open your favorite browser: http://localhost:8080/api/v1/users
-6. Response:
+A sample REST API showing **pagination with Spring Data JPA** (`Pageable` / `PageRequest`) backed by MySQL.
+100 fake users are seeded on startup with [JavaFaker](https://github.com/DiUS/java-faker).
+
+## Tech Stack
+
+| Component        | Version                                  |
+|------------------|------------------------------------------|
+| Java (JDK)       | **25**                                   |
+| Spring Boot      | 4.1.1 (Spring Data JPA, Web, DevTools)   |
+| Database         | MySQL 9.2 (via Docker Compose)           |
+| Build            | Maven Wrapper (`./mvnw`)                 |
+| Testing          | JUnit 5, Testcontainers 2.x, REST Assured |
+| Container image  | Jib / Dockerfile (JDK 25 base images)    |
+
+## Prerequisites
+
+- JDK 25 (e.g. [Eclipse Temurin 25](https://adoptium.net/))
+- Docker (used by Spring Boot Docker Compose support and by Testcontainers in tests)
+
+## Getting Started
+
+1. Clone this repository:
+   ```shell
+   git clone https://github.com/hendisantika/spring-data-jpa-pagination.git
+   cd spring-data-jpa-pagination
+   ```
+2. (Optional) Change DB credentials in `src/main/resources/application.yml` and `compose.yaml`.
+3. Run the application (MySQL is started automatically from `compose.yaml` on port `3307`):
+   ```shell
+   ./mvnw spring-boot:run
+   ```
+4. Open http://localhost:8080/api/v1/users
+
+## API
+
+`GET /api/v1/users`
+
+| Query param | Default | Description                         |
+|-------------|---------|-------------------------------------|
+| `name`      | `""`    | Filter users whose name contains it |
+| `page`      | `0`     | Zero-based page index               |
+| `size`      | `10`    | Page size                           |
+
+Examples:
+
+```shell
+curl "http://localhost:8080/api/v1/users"
+curl "http://localhost:8080/api/v1/users?page=2&size=5"
+curl "http://localhost:8080/api/v1/users?name=john&page=0&size=20"
+```
+
+> Note: the endpoint deliberately sleeps 3 seconds to simulate latency (handy for front-end loading states).
+
+Sample response:
 
 ```json
 // 20250312062205
@@ -141,3 +192,34 @@
   }
 }
 ```
+
+## Running Tests
+
+Tests spin up a real MySQL instance with Testcontainers, so Docker must be running:
+
+```shell
+./mvnw verify
+```
+
+## Docker
+
+Build a container image with Jib (base image `amazoncorretto:25`):
+
+```shell
+./mvnw compile jib:dockerBuild
+```
+
+Or build with the `Dockerfile` (base image `bellsoft/liberica-openjdk-debian:25`):
+
+```shell
+./mvnw package -DskipTests
+docker build -t spring-data-jpa-pagination .
+```
+
+## CI/CD & Dependency Management
+
+- **GitHub Actions** (`.github/workflows/maven.yml`): builds and tests on JDK 25 (Temurin) for every push/PR to `main`,
+  uploads surefire reports on failure and submits the Maven dependency graph on `main`.
+- **Dependabot** (`.github/dependabot.yml`): weekly (Monday 05:00 Asia/Jakarta) updates for Maven, GitHub Actions,
+  Dockerfile and Docker Compose, with grouped PRs (Spring Boot, testing, Maven plugins, minor/patch), labels and
+  Conventional Commit prefixes.
