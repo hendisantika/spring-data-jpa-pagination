@@ -15,7 +15,7 @@
     <description>spring-data-jpa-pagination</description>
     <properties>
         <java.version>25</java.version>
-        <testcontainers.version>1.19.8</testcontainers.version>
+        <rest-assured.version>6.3.0</rest-assured.version>
         <start-class>id.my.hendisantika.jpapagination.SpringDataJpaPaginationApplication</start-class>
     </properties>
     <dependencies>
@@ -66,17 +66,18 @@
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>junit-jupiter</artifactId>
+            <artifactId>testcontainers-junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.testcontainers</groupId>
-            <artifactId>mysql</artifactId>
+            <artifactId>testcontainers-mysql</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
+            <version>${rest-assured.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
