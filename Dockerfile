@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-openjdk-debian:21
+FROM bellsoft/liberica-openjdk-debian:25
 LABEL authors="hendisantika"
 LABEL maintainer="hendisantika@yahoo.co.id"
 VOLUME /tmp

@@ -14,7 +14,7 @@
     <name>spring-data-jpa-pagination</name>
     <description>spring-data-jpa-pagination</description>
     <properties>
-        <java.version>23</java.version>
+        <java.version>25</java.version>
         <testcontainers.version>1.19.8</testcontainers.version>
         <start-class>id.my.hendisantika.jpapagination.SpringDataJpaPaginationApplication</start-class>
     </properties>
@@ -88,7 +88,7 @@
                 <base.image.registry>public.ecr.aws</base.image.registry>
                 <base.image.repository>lambda</base.image.repository>
                 <base.image.name>java</base.image.name>
-                <image.tag>21-x86_64</image.tag>
+                <image.tag>25-x86_64</image.tag>
             </properties>
         </profile>
         <profile>
@@ -97,7 +97,7 @@
                 <base.image.registry>public.ecr.aws</base.image.registry>
                 <base.image.repository>amazoncorretto</base.image.repository>
                 <base.image.name>amazoncorretto</base.image.name>
-                <image.tag>21</image.tag>
+                <image.tag>25</image.tag>
             </properties>
         </profile>
         <profile>
@@ -109,7 +109,7 @@
                 <base.image.registry>gcr.io</base.image.registry>
                 <base.image.repository>distroless</base.image.repository>
                 <base.image.name>java</base.image.name>
-                <image.tag>21</image.tag>
+                <image.tag>25</image.tag>
             </properties>
         </profile>
         <profile>
@@ -125,7 +125,7 @@
                         <version>3.5.2</version>
                         <configuration>
                             <from>
-                                <image>amazoncorretto:23</image>
+                                <image>amazoncorretto:25</image>
                             </from>
                             <container>
                                 <ports>
@@ -177,7 +177,7 @@
                         <version>3.5.2</version>
                         <configuration>
                             <from>
-                                <image>openjdk:21</image>
+                                <image>eclipse-temurin:25-jre</image>
                             </from>
                             <container>
                                 <ports>
@@ -279,7 +279,7 @@
                 <version>3.5.2</version>
                 <configuration>
                     <from>
-                        <image>amazoncorretto:21</image>
+                        <image>amazoncorretto:25</image>
                     </from>
                     <container>
                         <ports>
